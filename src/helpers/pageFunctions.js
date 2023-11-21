@@ -1,4 +1,4 @@
-import { searchCities } from './weatherAPI';
+import { searchCities, getWeatherByCity } from './weatherAPI';
 
 /**
  * Cria um elemento HTML com as informações passadas
@@ -117,7 +117,9 @@ export async function handleSearch(event) {
   const searchInput = document.getElementById('search-input');
   const searchValue = searchInput.value;
   const arrayCities = await searchCities(searchValue);
-  arrayCities.forEach((city) => {
-    return getWeatherByCity(city.url);
-  });
+  Promise.all([
+    arrayCities.forEach((city) => {
+      return getWeatherByCity(city.url);
+    }),
+  ]);
 }
