@@ -107,9 +107,8 @@ export function createCityElement(cityInfo) {
   return cityElement;
 }
 
-/**
- * Lida com o evento de submit do formulário de busca
- */
+const displayList = document.getElementById('cities');
+
 export async function handleSearch(event) {
   event.preventDefault();
   clearChildrenById('cities');
@@ -118,8 +117,11 @@ export async function handleSearch(event) {
   const searchValue = searchInput.value;
   const arrayCities = await searchCities(searchValue);
   Promise.all([
-    arrayCities.forEach((city) => {
-      return getWeatherByCity(city.url);
+    arrayCities.forEach(async (city) => {
+      const cityWeather = await getWeatherByCity(city.url);
+      displayList.appendChild(createCityElement(cityWeather));
     }),
   ]);
+  // newArrayCities
+  //   .forEach((city) => displayList.appendChild(createCityElement(city)));
 }
