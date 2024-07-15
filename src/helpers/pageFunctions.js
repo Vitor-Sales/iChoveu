@@ -71,7 +71,8 @@ export function showForecast(forecastList) {
     const weekdayElement = createForecast(forecast);
     weekdayContainer.appendChild(weekdayElement);
   });
-
+  weekdayContainer.style.display = 'flex';
+  weekdayContainer.style.flexWrap = 'wrap';
   forecastContainer.classList.remove('hidden');
 }
 
